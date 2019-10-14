@@ -1,0 +1,119 @@
+{
+  "name": "Event",
+  "plural": "events",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "required": true,
+      "default": "null"
+    },
+    "chain_action": {
+      "type": "string",
+      "required": true
+    },
+    "root_event_id": {
+      "type": "string",
+      "required": true
+    },
+    "domain": {
+      "type": "string",
+      "required": true
+    },
+    "severity": {
+      "type": "string",
+      "required": true
+    },
+    "event_type": {
+      "type": "string",
+      "required": true
+    },
+    "event_tags": {
+      "type": [
+        "string"
+      ],
+      "required": true
+    },
+    "event_name": {
+      "type": "string",
+      "required": true
+    },
+    "event_usermsg": {
+      "type": "string",
+      "required": true
+    },
+    "event_description": {
+      "type": "string",
+      "required": true
+    },
+    "condition_description": {
+      "type": "string",
+      "required": true
+    },
+    "ts_occurred": {
+      "type": "date",
+      "required": true
+    },
+    "ts_acquired": {
+      "type": "date",
+      "required": true
+    },
+    "node_id": {
+      "type": "string"
+    },
+    "node_type": {
+      "type": "string"
+    },
+    "entity_id": {
+      "type": "string"
+    },
+    "entity_name": {
+      "type": "string"
+    },
+    "agent_type": {
+      "type": "string"
+    },
+    "agent_name": {
+      "type": "string"
+    },
+    "schema_name": {
+      "type": [
+        "string"
+      ],
+      "default": "null"
+    },
+    "asset": {
+      "type": "string"
+    },
+    "asset_group": {
+      "type": "string"
+    },
+    "uid_op": {
+      "type": [
+        "string"
+      ],
+      "default": "null"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$unauthenticated",
+      "permission": "DENY"
+    }
+  ],
+  "methods": {}
+}
