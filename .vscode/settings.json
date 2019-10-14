@@ -1,0 +1,9 @@
+{
+    "javascript.preferences.quoteStyle": "single",
+    "prettier.singleQuote": true,
+    "javascript.format.insertSpaceAfterSemicolonInForStatements": false,
+    "javascript.format.insertSpaceAfterCommaDelimiter": false,
+    "typescript.format.insertSpaceAfterCommaDelimiter": false,
+    "editor.formatOnSave": true,
+    "autoimport.spaceBetweenBraces": false
+}
