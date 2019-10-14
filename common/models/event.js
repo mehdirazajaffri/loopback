@@ -1,28 +1,24 @@
 'use strict';
 
 const { SUCCESS_UPDATE, EVENT_NOT_FOUND } = require('../../constants/errors');
-const moment = require('moment');
+const {
+  getWhereObjectForEvents
+} = require('../../validators/event_validators');
 
 module.exports = function(Event) {
-  Event.findAll = function(
-    nodes,
-    asset,
-    assetGroup,
-    begin,
-    eventType,
-    eventTags,
-    uidOps,
-    offset,
-    limit,
-    rootEventId,
-    cb
-  ) {
-    if (asset && assetGroup) {
-      cb('asset and assetGroups cannot be defined together', null);
+  Event.findAll = function() {
+    const cb = arguments[arguments.length - 1];
+    const filterParams = getWhereObjectForEvents(arguments);
+    if (filterParams.status) {
+      const where = filterParams.where;
+      const limit = filterParams.limit;
+      console.log(where);
+      Event.find({ where, limit }, (err, events) => {
+        cb(err, events);
+      });
+    } else {
+      cb({ message: filterParams.errorMessage }, null);
     }
-    Event.find({}, (err, events) => {
-      cb(null, events);
-    });
   };
 
   Event.updateStatus = function(id, statusName, cb) {
@@ -53,11 +49,12 @@ module.exports = function(Event) {
       { arg: 'asset', type: 'string', http: { source: 'query' } },
       { arg: 'assetGroup', type: 'string', http: { source: 'query' } },
       { arg: 'begin', type: 'string', http: { source: 'query' } },
+      { arg: 'end', type: 'string', http: { source: 'query' } },
       { arg: 'eventType', type: 'string', http: { source: 'query' } },
       { arg: 'eventTags', type: ['string'], http: { source: 'query' } },
       { arg: 'uidOps', type: ['string'], http: { source: 'query' } },
       { arg: 'offset', type: 'number', http: { source: 'query' } },
-      { arg: 'limit', type: 'number', http: { source: 'query' } },
+      { arg: 'limit', type: 'number', default: 100, http: { source: 'query' } },
       { arg: 'rootEventId', type: 'number', http: { source: 'query' } }
     ],
     http: {
