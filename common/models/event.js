@@ -12,7 +12,6 @@ module.exports = function(Event) {
     if (filterParams.status) {
       const where = filterParams.where;
       const limit = filterParams.limit;
-      console.log(where);
       Event.find({ where, limit }, (err, events) => {
         cb(err, events);
       });
