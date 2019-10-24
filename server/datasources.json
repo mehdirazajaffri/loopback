@@ -12,5 +12,15 @@
     "connector": "postgresql",
     "user": "postgres",
     "ssl": false
+  },
+  "spdb": {
+    "host": "178.62.182.51",
+    "port": 5432,
+    "database": "notification_engine",
+    "password": "ueSaeSe4phoof4ci",
+    "name": "spdb",
+    "connector": "postgresql",
+    "user": "notification_engine",
+    "ssl": false
   }
 }

@@ -54,7 +54,7 @@
         "sharedMethods": {
           "*": false,
           "findAll": true,
-          "findById": true,
+          "findEventById": true,
           "updateStatus": true
         }
       }

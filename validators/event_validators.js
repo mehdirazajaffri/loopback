@@ -7,6 +7,7 @@ function getWhereObjectForEvents(argumentsArray) {
   const result = {
     where: {},
     limit: 100,
+    offset: 0,
     status: true,
     errorMessage: ''
   };
@@ -29,6 +30,7 @@ function getWhereObjectForEvents(argumentsArray) {
     return obj;
   }, {});
   result.limit = parseInt(argumentsMap.limit) || result.limit;
+  result.offset = parseInt(argumentsMap.offset) || result.offset;
   if (argumentsMap.begin && !moment(argumentsMap.begin).isValid()) {
     result.status = false;
     result.errorMessage = `begin ${DATE_NOT_VALID}`;
@@ -39,6 +41,9 @@ function getWhereObjectForEvents(argumentsArray) {
     result.status = false;
     result.errorMessage = ASSET_GROUP_ERROR;
   } else {
+    if (argumentsMap.nodes) {
+      result.where.nodes = argumentsMap.nodes;
+    }
     if (argumentsMap.asset) {
       result.where.asset = argumentsMap.asset;
     }
@@ -51,9 +56,6 @@ function getWhereObjectForEvents(argumentsArray) {
     if (argumentsMap.eventTags) {
       result.where.event_tags = argumentsMap.eventTags;
     }
-    if (argumentsMap.uidOps) {
-      result.where.uid_op = argumentsMap.uidOps;
-    }
     if (argumentsMap.rootEventId) {
       result.where.root_event_id = argumentsMap.rootEventId;
     }
@@ -63,9 +65,9 @@ function getWhereObjectForEvents(argumentsArray) {
       moment()
         .subtract(3, 'days')
         .format(format);
-    result.where.ts_occured = { gt: argumentsMap.begin };
+    result.where.begin = { gt: argumentsMap.begin };
     argumentsMap.end = argumentsMap.end || moment().format(format);
-    result.where.ts_occured = { gt: argumentsMap.end };
+    result.where.end = { gt: argumentsMap.end };
   }
   return result;
 }
